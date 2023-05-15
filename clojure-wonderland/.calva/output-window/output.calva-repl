@@ -1,0 +1,110 @@
+; This is the Calva evaluation results output window.
+; TIPS: The keyboard shortcut `ctrl+alt+o o` shows and focuses this window
+;   when connected to a REPL session.
+; Please see https://calva.io/output/ for more info.
+; Happy coding! ♥️
+
+; Jacking in...
+; Connecting using "Leiningen" project type.
+; You can make Calva auto-select this.
+;   - See https://calva.io/connect-sequences/
+; 
+; Starting Jack-in Terminal: pushd /home/jboo/dev/clojure/wonderland ; lein update-in :dependencies conj '[nrepl,"1.0.0"]' -- update-in :plugins conj '[cider/cider-nrepl,"0.28.5"]' -- update-in '[:repl-options,:nrepl-middleware]' conj '["cider.nrepl/cider-middleware"]' -- repl :headless ; popd
+; Using host:port 127.0.0.1:34687 ...
+; Hooking up nREPL sessions ...
+; Connected session: clj
+; TIPS:
+;   - You can edit the contents here. Use it as a REPL if you like.
+;   - `alt+enter` evaluates the current top level form.
+;   - `ctrl+enter` evaluates the current form.
+;   - `alt+up` and `alt+down` traverse up and down the REPL command history
+;      when the cursor is after the last contents at the prompt
+;   - Clojure lines in stack traces are peekable and clickable.
+clj꞉wonderland.core꞉>  ; Use `alt+enter` to evaluate
+; Jack-in done.
+clj꞉wonderland.core꞉> 
+(+ 1 1)
+2
+clj꞉wonderland.core꞉> 
+(class "caterpillar")
+java.lang.String
+clj꞉wonderland.core꞉> 
+(. "caterpillar" toUpperCase)
+"CATERPILLAR"
+clj꞉wonderland.core꞉> 
+(.toUpperCase "caterpillar")
+"CATERPILLAR"
+clj꞉wonderland.core꞉> 
+(def caterpillar "caterpillar")
+#'wonderland.core/caterpillar
+clj꞉wonderland.core꞉> 
+caterpillar
+"caterpillar"
+clj꞉wonderland.core꞉> 
+(.toUpperCase caterpillar)
+"CATERPILLAR"
+clj꞉wonderland.core꞉> 
+(.indexOf caterpillar "p")
+5
+clj꞉wonderland.core꞉> 
+(.indexOf caterpillar "pillar")
+5
+clj꞉wonderland.core꞉> 
+(.indexOf caterpillar "pllar")
+-1
+clj꞉wonderland.core꞉> 
+(.indexOf caterpillar "lar")
+8
+clj꞉wonderland.core꞉> 
+(new String "Hewwo")
+"Hewwo"
+clj꞉wonderland.core꞉> 
+(String. "Hewwo")
+"Hewwo"
+clj꞉wonderland.core꞉> 
+(ns caterpillar.network
+  (:import (java.net InetAddress)))
+nil
+clj꞉caterpillar.network꞉> 
+(InetAddress/getByName "localhost")
+#object[java.net.Inet4Address 0x374e89b4 "localhost/127.0.0.1"]
+clj꞉caterpillar.network꞉> 
+(.getHostName (InetAddress/getByName "localhost"))
+"localhost"
+clj꞉caterpillar.network꞉> 
+(java.net.InetAddress/getByName "localhost")
+#object[java.net.Inet4Address 0x118cb66e "localhost/127.0.0.1"]
+clj꞉caterpillar.network꞉> 
+(def sb (doto (StringBuffer. "Who ")
+          (.append "are ")
+          (.append "you?")))
+#'caterpillar.network/sb
+clj꞉caterpillar.network꞉> 
+sb
+#object[java.lang.StringBuffer 0x77f360b3 "Who are you?"]
+clj꞉caterpillar.network꞉> 
+(.toString sb)
+"Who are you?"
+clj꞉caterpillar.network꞉> 
+(import 'java.util.UUID)
+java.util.UUID
+clj꞉caterpillar.network꞉> 
+(UUID)
+; Execution error at nrepl.middleware.interruptible-eval/evaluate$fn$fn (interruptible_eval.clj:87).
+; Expecting var, but UUID is mapped to class java.util.UUID
+clj꞉caterpillar.network꞉> 
+(UUID/randomUUID)
+#uuid "32bba222-6526-401e-bd35-c857136634d5"
+clj꞉caterpillar.network꞉> 
+(UUID/randomUUID)
+#uuid "784bb134-5924-441e-9612-ea408eb5a7a4"
+clj꞉caterpillar.network꞉> 
+(UUID/randomUUID)
+#uuid "74a89cf1-bdea-4044-967e-e04bf8c0f3d7"
+clj꞉caterpillar.network꞉> 
+(UUID/randomUUID)
+#uuid "2ea54831-a6db-4d76-bc5c-955b6ed27ba0"
+clj꞉caterpillar.network꞉> 
+(UUID/randomUUID)
+#uuid "ea696753-69dd-4887-b789-2004aa28c8cf"
+clj꞉caterpillar.network꞉> 
