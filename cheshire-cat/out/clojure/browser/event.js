@@ -10,7 +10,7 @@ goog.require('goog.events.EventType');
  */
 clojure.browser.event.IEventType = function(){};
 
-var clojure$browser$event$IEventType$event_types$dyn_512 = (function (this$){
+var clojure$browser$event$IEventType$event_types$dyn_4198 = (function (this$){
 var x__5393__auto__ = (((this$ == null))?null:this$);
 var m__5394__auto__ = (clojure.browser.event.event_types[goog.typeOf(x__5393__auto__)]);
 if((!((m__5394__auto__ == null)))){
@@ -28,7 +28,7 @@ clojure.browser.event.event_types = (function clojure$browser$event$event_types(
 if((((!((this$ == null)))) && ((!((this$.clojure$browser$event$IEventType$event_types$arity$1 == null)))))){
 return this$.clojure$browser$event$IEventType$event_types$arity$1(this$);
 } else {
-return clojure$browser$event$IEventType$event_types$dyn_512.call(null,this$);
+return clojure$browser$event$IEventType$event_types$dyn_4198.call(null,this$);
 }
 });
 
@@ -36,10 +36,10 @@ return clojure$browser$event$IEventType$event_types$dyn_512.call(null,this$);
 
 (goog.events.EventTarget.prototype.clojure$browser$event$IEventType$event_types$arity$1 = (function (this$){
 var this$__$1 = this;
-return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.call(null,(function (p__513){
-var vec__514 = p__513;
-var k = cljs.core.nth.call(null,vec__514,(0),null);
-var v = cljs.core.nth.call(null,vec__514,(1),null);
+return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.call(null,(function (p__4199){
+var vec__4200 = p__4199;
+var k = cljs.core.nth.call(null,vec__4200,(0),null);
+var v = cljs.core.nth.call(null,vec__4200,(1),null);
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.keyword.call(null,k.toLowerCase()),v], null);
 }),cljs.core.merge.call(null,cljs.core.js__GT_clj.call(null,goog.events.EventType))));
 }));
@@ -48,18 +48,18 @@ if((typeof Element !== 'undefined')){
 
 (Element.prototype.clojure$browser$event$IEventType$event_types$arity$1 = (function (this$){
 var this$__$1 = this;
-return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.call(null,(function (p__517){
-var vec__518 = p__517;
-var k = cljs.core.nth.call(null,vec__518,(0),null);
-var v = cljs.core.nth.call(null,vec__518,(1),null);
+return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.call(null,(function (p__4203){
+var vec__4204 = p__4203;
+var k = cljs.core.nth.call(null,vec__4204,(0),null);
+var v = cljs.core.nth.call(null,vec__4204,(1),null);
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.keyword.call(null,k.toLowerCase()),v], null);
 }),cljs.core.merge.call(null,cljs.core.js__GT_clj.call(null,goog.events.EventType))));
 }));
 } else {
 }
 clojure.browser.event.listen = (function clojure$browser$event$listen(var_args){
-var G__522 = arguments.length;
-switch (G__522) {
+var G__4208 = arguments.length;
+switch (G__4208) {
 case 3:
 return clojure.browser.event.listen.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -85,8 +85,8 @@ return goog.events.listen(src,cljs.core.get.call(null,clojure.browser.event.even
 (clojure.browser.event.listen.cljs$lang$maxFixedArity = 4);
 
 clojure.browser.event.listen_once = (function clojure$browser$event$listen_once(var_args){
-var G__525 = arguments.length;
-switch (G__525) {
+var G__4211 = arguments.length;
+switch (G__4211) {
 case 3:
 return clojure.browser.event.listen_once.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -112,8 +112,8 @@ return goog.events.listenOnce(src,cljs.core.get.call(null,clojure.browser.event.
 (clojure.browser.event.listen_once.cljs$lang$maxFixedArity = 4);
 
 clojure.browser.event.unlisten = (function clojure$browser$event$unlisten(var_args){
-var G__528 = arguments.length;
-switch (G__528) {
+var G__4214 = arguments.length;
+switch (G__4214) {
 case 3:
 return clojure.browser.event.unlisten.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 

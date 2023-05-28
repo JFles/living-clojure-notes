@@ -9,7 +9,8 @@
                  [ring/ring-json  "0.5.1"] ;; ring middleware for handling json req/resp
                  [org.clojure/clojurescript "1.11.60"] ;; clojurescript time boi!
                  [cljs-http "0.1.46"] ;; handling HTTP in cljs
-                 [org.clojure/core.async "1.6.673"]] ;; cljs-http will leverage async calls
+                 [org.clojure/core.async "1.6.673"] ;; cljs-http will leverage async calls
+                 [enfocus "2.1.1"]] ;; DOM Manipulation and templating
   :plugins [[lein-ring "0.12.5"] ;; provides automation for common Ring tasks, e.g. starting the web server
             [lein-cljsbuild "1.1.8"]] ;; autocompile cljs code and get a nice cljs repl to boot!
   :ring {:handler cheshire-cat.handler/app} ;; points to the main app route for the web server startup task

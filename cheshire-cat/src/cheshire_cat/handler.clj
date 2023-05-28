@@ -17,17 +17,21 @@
           ;;     {:name "Cheshire Cat"
             ;;    :status :grinning})})
   (GET "/cheshire-cat" []
-       (rr/response {:name "Cheshire Cat" :status :grinning})) ;; create a basic 200 json resp with ring middleware
+    (rr/response {:name "Cheshire Cat" :status :grinning}))
+       ;(rr/response {:name "Cheshire Cat" :status :grinning})) ;; create a basic 200 json resp with ring middleware
   (route/not-found "Not Found")) ;; 404 handler for undefined path request
 
-;; (def app (wrap-defaults app-routes site-defaults)) ;; non-threaded approach. Would eval parens from lowest nest
+;; (def app (wrap-defaults app-routes site-defaults)) ;; non-threaded approach. Would eval parens from lowest nes
 
-(def app
-  "sets up some basic middleware needed on std websites such as parameter, session, cookie handling,
-  and handling rsrc files such as images, CSS, and JavaScript"
-  (-> app-routes ;; threading `app-routes` for readability and to avoid nesting
-      (wrap-defaults site-defaults) ;; wrap our `app-routes` with `site-defaults`
-      (ring-json/wrap-json-response))) ;; then wrap `app-routes` with auto JSON response so we only have to pass a map
+ (def app
+   ;  "sets up some basic middleware needed on std websites such as parameter, session, cookie handling,
+   ;  and handling rsrc files such as images, CSS, and JavaScript"
+  (-> app-routes
+      (wrap-defaults site-defaults)
+      (ring-json/wrap-json-response)))
+  ;(-> app-routes ;; threading `app-routes` for readability and to avoid nesting
+  ;    (wrap-defaults site-defaults) ;; wrap our `app-routes` with `site-defaults`
+  ;    (ring-json/wrap-json-response))) ;; then wrap `app-routes` with auto JSON response so we only have to pass a map
 
 
 ;; 😺 Experimenting with Cheshire to eval in REPL! 🛑
