@@ -69,11 +69,71 @@
 (= 3 (last (list 1 2 3)))
 
 
+
+
 ;; ====================
 ;; ~~~ Week 1 Day 2 ~~~
 ;; ====================
 
 ;; 13-18, 35, 36
+
+;; #13 - `rest`
+;;
+(= [20 30 40] (rest [10 20 30 40]))
+
+;; #14 - Functions
+;;
+;; Exploring the many ways Clojure allows us to create funcs
+(= 8 ((fn add-five [x] (+ x 5)) 3))
+
+(= 8 ((fn [x] (+ x 5)) 3))
+
+(= 8 (#(+ % 5) 3))
+
+(= 8 ((partial + 5) 3))
+
+;; #15 - Double Down
+;;
+;; Writing a simple function which doubles a number
+(= (#(* % 2) 2) 4)
+
+;; #16 - Hello World
+;;
+;; Writing a func which returns a personalized greeting
+(= (#(str "Hello, " % "!") "Dave") "Hello, Dave!")
+
+;; #17 - Map
+;;
+;; Map takes two args: a func `f` and a seq `s`
+;; Map returns a new seq of the result of applying `f` to each item of `s`
+(= '(6 7 8) (map #(+ % 5) '(1 2 3)))
+
+;; #18 - Filter
+;;
+;; Filter takes two args: a predicate func `f` and a seq `s`.
+;; It returns a new seq consisting of each item of `s` where (= (f item) true)
+(= '(6 7) (filter #(> % 5) '(3 4 5 6 7)))
+
+;; #35 - Local Bindings
+;;
+;; Giving local lexically scoped values names with the `let` form
+(= 7 (let [x 5] (+ 2 x)))
+
+(= 7 (let [x 3, y 10] (- y x)))
+
+(= 7 (let [x 21] (let [y 3] (/ x y))))
+
+;; #36 - Let it Be
+;;
+;; Binding `x` `y`, and `z` to make the statement true
+(= 10 (let [x 7, y 3] (+ x y)))
+
+(= 4 (let [y 3, z 1] (+ y z)))
+
+(= 1 (let [z 1] z))
+
+
+
 
 ;; ====================
 ;; ~~~ Week 1 Day 3 ~~~
@@ -81,11 +141,160 @@
 
 ;; 37, 57, 68, 71, 72, 145
 
+;; #37 - Regular Expressions
+;;
+;; Regex patterns are supported with a special reader macro
+(= "ABC" (apply str (re-seq #"[A-Z]+" "bA1B3Ce ")))
+
+;; #57 - Simple Recursion
+;;
+;; Recursion is one of the fundamental techniques used in functional programming
+(= '(5 4 3 2 1) ((fn foo [x]
+                   (when (> x 0)
+                     (conj (foo (dec x)) x)))
+                 5))
+
+;; #68 - Recurring Theme
+;;
+;; Clojure has one non-stack-consuming looping construct, `recur`
+;; Either a func or loop can be used as the recursion point
+;; `recur` rebinds the bindings of the recursion point to the vals its passed.
+;; It must be called from the tail-pos else error
+(= [7 6 5 4 3]
+   (loop [x 5
+          result []]
+     (if (> x 0)
+       (recur (dec x) (conj result (+ 2 x)))
+       result)))
+
+;; #71 - Rearranging Code: ->
+;;
+;; The `->` macro threads an expr `x` through a variable num of forms.
+;; First, `x` is inserted as the second item in the first form,
+;; making a list of it if it isn't already a list.
+;; Second, the first form is inserted as the second item in the second form,
+;; and making a list of that form if necessary.
+;;
+;; This process continues for all the forms, and it can sometimes make code more readable
+(= (last (sort (rest (reverse [2 5 4 1 3 6]))))
+   (-> [2 5 4 1 3 6] reverse rest sort last)
+   5)
+
+;; #72 - Rearranging Code: ->>
+;;
+;; The `->>` macro threads an expr `x` through a variable num of forms.
+;; First, `x` is inserted as the last item in the first form,
+;; making a list of it if it isn't already a list.
+;; Second, the first form is inserted as the last item in the second form,
+;; and making a list of that form if necessary.
+(= (reduce + (map inc (take 3 (drop 2 [2 5 4 1 3 6]))))
+   (->> [2 5 4 1 3 6] (drop 2) (take 3) (map inc) (reduce +))
+   11)
+
+;; #145 - For the win
+;;
+;; Clojure's `for` macro helps us produce a seq based on some other seq(s).
+;; It may be hard to understand, but it has a big payoff with clear, concise seq wrangling
+(= '(1 5 9 13 17 21 25 29 33 37)
+   (for [x (range 40)
+         :when (= 1 (rem x 4))]
+     x))
+
+(= '(1 5 9 13 17 21 25 29 33 37)
+   (for [x (iterate #(+ 4 %) 0)
+         :let [z (inc x)]
+         :while (< z 40)]
+     z))
+
+
+(= '(1 5 9 13 17 21 25 29 33 37)
+   (for [[x y] (partition 2 (range 20))]
+     (+ x y)))
+
 ;; ====================
 ;; ~~~ Week 1 Day 4 ~~~
 ;; ====================
 
 ;; 20, 24, 25, 27, 32
+
+;; #20 - Penultimate Element
+;;
+;; Write a func which returns the 2nd to last el from a seq
+
+(defn get-sec-to-last [list]
+  (-> list
+      ;; (when (> (count list) 2) drop-last)
+      (drop-last)
+      reverse
+      first))
+
+(get-sec-to-last (list 1 2 3 4 5))
+
+(= ((fn [l] (-> l (drop-last) last))
+    (list 1 2 3 4 5))
+   4)
+
+(= ((fn [l] (-> l (drop-last) last))
+    ["a" "b" "c"])
+   "b")
+
+(= ((fn [l] (-> l (drop-last) last))
+      [[1 2] [3 4]])
+   [1 2])
+
+;; #24 - Sum It All Up
+;;
+;; Write a func which returns the sum of a sequence of numbers
+(defn sum [coll]
+  (reduce + coll))
+
+(= (sum [1 2 3]) 6)
+(= (sum (list 0 -2 5 5)) 8)
+(= (sum #{4 2 1}) 7)
+(= (sum '(0 0 -1)) -1)
+(= (sum '(1 10 3)) 14)
+
+;; #25 - Find the odd numbers
+;;
+;; Write a func which only returns the odd nums from a seq
+(defn return-only-odds [coll]
+  (filter #(= 1 (mod % 2)) coll))
+
+(= (return-only-odds #{1 2 3 4 5}) '(1 3 5))
+(= (return-only-odds [4 2 1 6]) '(1))
+(= (return-only-odds [2 2 4 6]) '())
+(= (return-only-odds [1 1 1 3]) '(1 1 1 3))
+
+;; #27 - Palindrome Detector
+;;
+;; Write a func which returns true if a given seq is a palindrome
+;;
+;; Site fails with not being able to find java.lang.String despite it being valid code
+(defn palindrome? [coll]
+  (= coll (if (= java.lang.String (type coll))
+            (apply str (reverse coll))
+            (reverse coll))))
+
+;; Another user submitted the following solution which doesn't rely on a type check
+(fn [x] (= (reverse x)
+           (seq x)))
+
+(false? (palindrome? '(1 2 3 4 5)))
+(true? (palindrome? "racecar"))
+(true? (palindrome? [:foo :bar :foo]))
+(true? (palindrome? '(1 1 3 3 1 1)))
+(false? (palindrome? '(:a :b :c)))
+
+;; #32 - Duplicate a Sequence
+;;
+;; Write a func which duplicates each el of a seq
+(defn duplicate-seq [coll]
+  (mapcat #(repeat 2 %) coll))
+
+(= (duplicate-seq [1 2 3]) '(1 1 2 2 3 3))
+(= (duplicate-seq [:a :a :b :b]) '(:a :a :a :a :b :b :b :b))
+(= (duplicate-seq [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4]))
+(= (duplicate-seq [44 33]) [44 44 33 33])
 
 ;; ====================
 ;; ~~~ Week 1 Day 5 ~~~
