@@ -300,7 +300,35 @@
 ;; ~~~ Week 1 Day 5 ~~~
 ;; ====================
 
-;; 30, 31, 41, 45, 33,
+;; 30, 31, 41, 45, 33
+;;
+;; #30 - Compress a Sequence
+;;
+;; Write a func which removes consecutive dupes from a seq
+(= (apply str (dedupe "Leeeeeerrroyyy")) "Leroy")
+(= (dedupe [1 1 2 3 3 2 2 3]) '(1 2 3 2 3))
+(= (dedupe [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2]))
+
+;; #31 - Pack a Sequence
+;;
+;; Write a func which packs consec dupes into sub-lists
+(defn separate-unique-values [coll]
+  (partition-by identity coll))
+
+(= (separate-unique-values [1 1 2 1 1 1 3 3]) '((1 1) (2) (1 1 1) (3 3)))
+(= (separate-unique-values [:a :a :b :b :c]) '((:a :a) (:b :b) (:c)))
+(= (separate-unique-values [[1 2] [1 2] [3 4]]) '(([1 2] [1 2]) ([3 4])))
+
+;; #41 - Drop Every Nth Item
+;;
+;; Write a func which drops every Nth item from a seq
+(defn drop-every-nth-item [coll n]
+  (let [adj (dec n)]
+  (keep-indexed #(if (not= 0 (mod %1 adj)) %2) coll)))
+
+(= (drop-every-nth-item [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8])
+(= (drop-every-nth-item [:a :b :c :d :e :f] 2) [:a :c :e])
+(= (drop-every-nth-item [1 2 3 4 5 6] 4) [1 2 3 5 6])
 
 ;; ====================
 ;; ~~~ Week 2 Day 1 ~~~
