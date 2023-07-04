@@ -321,20 +321,91 @@
 
 ;; #41 - Drop Every Nth Item
 ;;
-;; Write a func which drops every Nth item from a seq
+;; Write a func which drops every nth item from a seq
 (defn drop-every-nth-item [coll n]
-  (let [adj (dec n)]
-  (keep-indexed #(if (not= 0 (mod %1 adj)) %2) coll)))
+  (keep-indexed #(when (not= 0 (mod (+ % 1) n)) %2) coll))
 
 (= (drop-every-nth-item [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8])
 (= (drop-every-nth-item [:a :b :c :d :e :f] 2) [:a :c :e])
 (= (drop-every-nth-item [1 2 3 4 5 6] 4) [1 2 3 5 6])
+
+;; #45 - Intro to Iterate
+;;
+;; The iterate function can be used to produce an infinite lazy sequence.
+(= '(1 4 7 10 13) (take 5 (iterate #(+ 3 %) 1)))
+
+;; #33 - Replicate a Sequence
+;;
+;; Write a function which replicates each element of a sequence a variable number of times.
+(defn replicate-n-times [coll n]
+  (mapcat #(repeat n %) coll))
+
+(= (replicate-n-times [1 2 3] 2) '(1 1 2 2 3 3))
+(= (replicate-n-times [:a :b] 4) '(:a :a :a :a :b :b :b :b))
+(= (replicate-n-times [4 5 6] 1) '(4 5 6))
+(= (replicate-n-times [[1 2] [3 4]] 2) '([1 2] [1 2] [3 4] [3 4]))
+(= (replicate-n-times [44 33] 2) [44 44 33 33])
 
 ;; ====================
 ;; ~~~ Week 2 Day 1 ~~~
 ;; ====================
 
 ;; 26, 29, 48, 42, 52
+
+;; #26 - Fibonacci Sequence
+;;
+;; Write a func which returns the first X Fib #s
+(defn fib [x]
+  (loop [n 1
+         result [1]]
+    (if-not (> x (count result))
+      result
+      (recur (+ n (last result))
+             (conj result n)))))
+
+(= (fib 3) '(1 1 2))
+(= (fib 6) '(1 1 2 3 5 8))
+(= (fib 8) '(1 1 2 3 5 8 13 21))
+
+;; #29 - Get the Caps
+;;
+;; Write a func which takes a string and returns a new
+;; string containing only the capital letters
+(defn get-caps [string]
+  (apply str (re-seq #"[A-Z]" string)))
+
+(= (get-caps "HeLlO, WoRlD!") "HLOWRD")
+(empty? (get-caps "nothing"))
+(= (get-caps "$#A(*&987Zf") "AZ")
+
+;; #48 - Intro to some
+;;
+;; The `some` func takes a pred func and a coll. It returns the first logical
+;; true val of (pred x) where x is an item in the coll
+
+(= 6 (some #{2 7 6} [5 6 7 8])) ;; idiom is to use a set as pred to see if any vals are in the coll
+(= 6 (some #(when (even? %) %) [5 6 7 8]))
+
+;; #42 - Factorial fun
+;;
+;; Write a func which calcs factorials
+(defn factorial [n]
+  (loop [val n
+         sum 0]
+    (if (= val 1)
+      sum
+      (recur (- n 1)
+             (+ sum (* n (- n 1)))))))
+
+(= (factorial 1) 1)
+(= (factorial 3) 6)
+(= (factorial 5) 120)
+(= (factorial 8) 40320)
+
+;; #52 -
+;;
+;;
+
 
 ;; ====================
 ;; ~~~ Week 2 Day 2 ~~~
