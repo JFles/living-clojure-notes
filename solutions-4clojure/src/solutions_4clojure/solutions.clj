@@ -391,20 +391,21 @@
 ;; Write a func which calcs factorials
 (defn factorial [n]
   (loop [val n
-         sum 0]
+         sum 1]
     (if (= val 1)
       sum
-      (recur (- n 1)
-             (+ sum (* n (- n 1)))))))
+      (recur (- val 1)
+             (* sum val)))))
 
 (= (factorial 1) 1)
 (= (factorial 3) 6)
 (= (factorial 5) 120)
 (= (factorial 8) 40320)
 
-;; #52 -
+;; #52 - Intro to Destructuring
 ;;
-;;
+;; Let bindings and func param lists support destructuring
+(= [2 4] (let [[a b c d e f g] (range)] [c e]))
 
 
 ;; ====================
@@ -412,6 +413,42 @@
 ;; ====================
 
 ;; 51, 83, 66
+
+;; #51 - Advanced Destructuring
+;;
+;; Here is an ex of more sophisticated destructuring
+(= [1 2 [3 4 5] [1 2 3 4 5]] ;; nested vectors
+   (let [[item1 item2 & remaining :as all] [1 2 3 4 5]]
+     [item1 item2 remaining all]))
+
+;; #83 - A Half-Truth
+;;
+;; Write a func which takes a variable # of Bools.
+;; Return `true` if and only if some but not all bools are true -- `XOR`
+(defn xor [& bools]
+  (true? (and (some true? bools) (some false? bools))))
+
+(= false (xor false false))
+(= true (xor true false))
+(= false (xor true))
+(= true (xor false true false))
+(= false (xor true true true))
+(= true (xor true true true false))
+
+;; #66 - Greatest Common Divisor
+;;
+;; Given two integers, write a func which returns the Greatest Common Divisor
+(defn gcd [n1 n2]
+  (apply max
+    (filter #(zero? (mod n2 %))
+      (filter #(zero? (mod n1 %))
+        (map #(+ 1 %)
+          (range (min n1 n2)))))))
+
+(= (gcd 2 4) 2)
+(= (gcd 10 5) 5)
+(= (gcd 5 7) 1)
+(= (gcd 1023 858) 33)
 
 ;; ====================
 ;; ~~~ Week 2 Day 3 ~~~
